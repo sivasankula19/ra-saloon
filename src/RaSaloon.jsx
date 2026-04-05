@@ -1,76 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-
-const services = [
-    {
-        category: "Hair", icon: "✂️", items: [
-            { name: "Haircut (Men)", price: 150 },
-            { name: "Haircut (Women)", price: 300 },
-            { name: "Kids Haircut", price: 100 },
-            { name: "Hair Wash & Blow Dry", price: 250 },
-            { name: "Hair Straightening", price: 1200 },
-            { name: "Keratin Treatment", price: 2500 },
-            { name: "Hair Coloring", price: 800 },
-            { name: "Hair Highlights", price: 1500 },
-        ]
-    },
-    {
-        category: "Skin", icon: "✨", items: [
-            { name: "Basic Facial", price: 400 },
-            { name: "Cleanup", price: 250 },
-            { name: "De-Tan Pack", price: 350 },
-            { name: "Gold Facial", price: 800 },
-            { name: "Threading (Eyebrows)", price: 50 },
-            { name: "Threading (Upper Lip)", price: 30 },
-        ]
-    },
-    {
-        category: "Nails", icon: "💅", items: [
-            { name: "Manicure (Basic)", price: 300 },
-            { name: "Pedicure (Basic)", price: 350 },
-            { name: "Gel Nails", price: 700 },
-            { name: "Nail Art", price: 500 },
-        ]
-    },
-    {
-        category: "Grooming", icon: "🪒", items: [
-            { name: "Shave (Men)", price: 100 },
-            { name: "Beard Trim", price: 80 },
-            { name: "Beard Styling", price: 150 },
-            { name: "Head Massage", price: 200 },
-            { name: "Body Waxing (Arms)", price: 300 },
-            { name: "Body Waxing (Legs)", price: 400 },
-        ]
-    },
-    {
-        category: "Tattoos", icon: "🖊️", items: [
-            { name: "Small Tattoo – Men (upto 2\")", price: 800 },
-            { name: "Small Tattoo – Women (upto 2\")", price: 800 },
-            { name: "Medium Tattoo – Men (2\"–5\")", price: 2000 },
-            { name: "Medium Tattoo – Women (2\"–5\")", price: 2000 },
-            { name: "Large Tattoo – Men (5\"+)", price: 4000 },
-            { name: "Large Tattoo – Women (5\"+)", price: 4000 },
-            { name: "Full Sleeve – Men", price: 12000 },
-            { name: "Full Sleeve – Women", price: 10000 },
-            { name: "Half Sleeve – Men", price: 7000 },
-            { name: "Half Sleeve – Women", price: 6000 },
-            { name: "Finger / Wrist Tattoo", price: 500 },
-            { name: "Neck / Behind Ear Tattoo", price: 1200 },
-            { name: "Custom Design Tattoo", price: 1500 },
-            { name: "Cover-up Tattoo", price: 3000 },
-            { name: "Tattoo Touch-up", price: 600 },
-            { name: "Temporary Tattoo", price: 200 },
-        ]
-    },
-];
-
-const reviews = [
-    { name: "Priya S.", text: "Amazing haircut! The staff is so friendly and the salon is super clean. Best in Gachibowli!", stars: 5 },
-    { name: "Rahul M.", text: "Got a beard styling done here. Absolutely professional work. Will come back!", stars: 5 },
-    { name: "Sneha K.", text: "Keratin treatment was done perfectly. My hair feels amazing. Great value for money!", stars: 5 },
-    { name: "Vikram R.", text: "Very hygienic place with skilled staff. The gold facial was worth every rupee.", stars: 4 },
-    { name: "Arjun T.", text: "Got my first tattoo here — the artist was super skilled and hygienic. Loved the result!", stars: 5 },
-    { name: "Divya M.", text: "Got a small wrist tattoo and it came out absolutely beautiful. Very clean studio!", stars: 5 },
-];
+import { services, reviews, gallery } from "./constants";
+import "./rasaloon.css";
 
 function useIntersect(threshold = 0.15) {
     const ref = useRef(null);
@@ -101,7 +31,7 @@ export default function RASaloon() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeNav, setActiveNav] = useState("home");
-    
+
     const navLinks = ["home", "services", "pricing", "gallery", "reviews", "contact"];
 
     useEffect(() => {
@@ -126,110 +56,6 @@ export default function RASaloon() {
 
     return (
         <div style={{ fontFamily: "'Georgia', serif", background: "#0a0a0a", color: "#f0e8d8", minHeight: "100vh", overflowX: "hidden" }}>
-            <style>{`
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-          --gold: #c9a84c;
-          --gold-light: #e8c97a;
-          --gold-dark: #9a7030;
-          --cream: #f0e8d8;
-          --dark: #0a0a0a;
-          --dark2: #141414;
-          --dark3: #1e1e1e;
-        }
-        html { scroll-behavior: smooth; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #111; }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
-
-        @keyframes shimmer {
-          0% { background-position: -200% center; }
-          100% { background-position: 200% center; }
-        }
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-12px); }
-        }
-        @keyframes pulse-ring {
-          0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
-          70% { transform: scale(1); box-shadow: 0 0 0 18px rgba(201,168,76,0); }
-          100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(201,168,76,0); }
-        }
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes gradient-shift {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        .gold-text {
-          background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light), var(--gold));
-          background-size: 200% auto;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-          animation: shimmer 4s linear infinite;
-        }
-        .btn-gold {
-          background: linear-gradient(135deg, var(--gold-dark), var(--gold), var(--gold-light));
-          color: #0a0a0a;
-          border: none;
-          cursor: pointer;
-          font-family: 'Georgia', serif;
-          font-weight: bold;
-          letter-spacing: 1.5px;
-          text-transform: uppercase;
-          transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .btn-gold:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 8px 30px rgba(201,168,76,0.4);
-        }
-        .btn-outline {
-          background: transparent;
-          border: 1px solid var(--gold);
-          color: var(--gold);
-          cursor: pointer;
-          font-family: 'Georgia', serif;
-          letter-spacing: 1px;
-          transition: all 0.3s;
-        }
-        .btn-outline:hover {
-          background: var(--gold);
-          color: #0a0a0a;
-        }
-        .service-tab.active {
-          background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-          color: #0a0a0a;
-        }
-        .price-card:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 20px 50px rgba(201,168,76,0.2);
-          border-color: var(--gold) !important;
-        }
-        .review-card:hover {
-          transform: translateY(-4px);
-        }
-        @media (max-width: 768px) {
-          .hero-title { font-size: 2.8rem !important; }
-          .section-title { font-size: 2rem !important; }
-          .services-grid { grid-template-columns: 1fr 1fr !important; }
-          .contact-grid { grid-template-columns: 1fr !important; }
-          .hero-buttons { flex-direction: column !important; align-items: center !important; }
-        }
-        @media (max-width: 480px) {
-          .hero-title { font-size: 2.2rem !important; }
-          .services-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
-
             {/* NAV */}
             <nav style={{
                 position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
@@ -518,9 +344,11 @@ export default function RASaloon() {
                             <div style={{
                                 background: i === 1 ? "linear-gradient(145deg, #1a1200, #2a1f00)" : "#141414",
                                 border: i === 1 ? "1px solid rgba(201,168,76,0.5)" : "1px solid rgba(201,168,76,0.15)",
-                                borderRadius: "16px", padding: "36px 28px", width: "280px",
+                                borderRadius: "16px", padding: "36px 28px", width: "280px", height: "24.5rem",
                                 textAlign: "center", transition: "all 0.3s", position: "relative", overflow: "hidden"
-                            }}>
+                            }}
+                                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+                                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}>
                                 {pkg.tag && (
                                     <div style={{
                                         position: "absolute", top: "16px", right: "-28px",
@@ -558,17 +386,7 @@ export default function RASaloon() {
                     </div>
                 </AnimSection>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "16px", maxWidth: "1060px", margin: "0 auto" }}>
-                    {[
-                        { img: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80", label: "Men's Haircut" },
-                        { img: "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80", label: "Women's Styling" },
-                        { img: "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=600&q=80", label: "Beard Grooming" },
-                        { img: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600&q=80", label: "Hair Coloring" },
-                        { img: "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600&q=80", label: "Blow Dry & Finish" },
-                        { img: "https://images.unsplash.com/photo-1600948836101-f9ffda59d250?w=600&q=80", label: "Precision Cuts" },
-                        { img: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=600&q=80", label: "Tattoo – Men" },
-                        { img: "https://images.unsplash.com/photo-1568515387631-8b650bbcdb90?w=600&q=80", label: "Tattoo – Women" },
-                        { img: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=600&q=80", label: "Custom Tattoo Art" },
-                    ].map(({ img, label }) => (
+                    {gallery.map(({ img, label }) => (
                         <AnimSection key={label}>
                             <div style={{
                                 borderRadius: "14px", overflow: "hidden",
